@@ -1,0 +1,11 @@
+.prefooter{
+    background-color: black;
+    color: white;
+}
+.footerToggle{
+    color: white;
+    text-decoration: none;
+}
+.link:hover{
+    color: rgb(202, 159, 31);
+}
