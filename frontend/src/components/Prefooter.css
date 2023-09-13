@@ -2,10 +2,33 @@
     background-color: black;
     color: white;
 }
+.logo{
+    width: 60px;
+}
 .footerToggle{
     color: white;
     text-decoration: none;
 }
-.link:hover{
+.icon{
+    padding: 4px;
+    height: 23px;
+    margin: 2px 0 2px 2px;
+}
+.facebook{
+    background-color: #3B5998;
+    color: white;
+    border-radius: 50%;
+    
+}
+.twitter{
+    color: #1DA1F2;
+    border-radius: 50%;
+}
+.youtube{
+    background-color: white;
+    color: #CD201F;
+    border-radius: 50%;
+}
+.footerToggle:hover{
     color: rgb(202, 159, 31);
 }

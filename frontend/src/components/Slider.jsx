@@ -13,7 +13,7 @@ const Slider = () => {
         className="d-block w-100"
         src={Bus1}
         alt="First slide"
-        style={{ backgroundSize: 'cover', height: '80vh' }}
+        style={{ backgroundSize: 'cover',height:"80vh"}}
        
       />
     </Carousel.Item>

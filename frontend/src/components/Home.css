@@ -1,48 +1,17 @@
-.container2{
-    padding-top: 10px;
-    
-}
 .container3{
-    margin-top: 10px;
-    background-color: #e1d5d2;
+    overflow-y: hidden;
 }
-
 .findlocation{
-    color: rgb(9, 9, 9);
+    background-color: rgb(204, 226, 161);
+    color: black;
     text-decoration: none;
-    font-weight:700;
+    border-radius: 5px;
 }
 .findlocation:hover{
-    color: navy;
+    color: rgb(202, 159, 31);
 }
-
-h4{
-    margin-top: 25px;
-    font-weight: bolder;
-}
-
-/* tables */
-table {
-    margin-top: 30px;
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-th{
-    border-top: 3px solid #a55540;
-    border-bottom: 2px solid #a55540;
-    text-align: left;
-    padding: 8px;
-}
-td{
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-.tfooter{
-    border-bottom: 3px solid #a55540;
-}
-  
-tr:nth-child(even) {
-    background-color: #dddddd;
+@media only screen and (max-width: 389px) {
+    .paynow{
+        margin-top: 7px;
+    }
 }

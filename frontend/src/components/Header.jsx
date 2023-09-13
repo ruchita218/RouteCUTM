@@ -7,6 +7,7 @@ import logo from '../images/CenturionLogo.webp';
 import { Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import './Header.css';
 
 
 
@@ -37,24 +38,11 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" >
           <Nav  className=" m-auto">
-            <Nav.Link as={Link} to="/" style={{color:"white"}} >Home</Nav.Link>
-            <Nav.Link as={Link} to="/about" style={{color:"white"}}>About</Nav.Link>
-            <Nav.Link as={Link} to="/contact" style={{color:"white"}}>Contact</Nav.Link>
-            <Nav.Link as={Link} to="/payments" style={{color:"white"}}>Payment</Nav.Link>
-            <Nav.Link as={Link} to="/tracklocation" style={{color:"white"}}>Track Location</Nav.Link>
-            {/* <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search Your Location"
-              className="me-2"
-              aria-label="Search"
-              name='location'
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
-            <Button onClick={handleClick} variant="dark">Search</Button>
-          </Form>
-          <Nav.Link as={Link} to="/login" style={{color:"white"}}>Log In</Nav.Link> */}
+            <Nav.Link as={Link} to="/" className='link' >Home</Nav.Link>
+            <Nav.Link as={Link} to="/about" className='link'>About</Nav.Link>
+            <Nav.Link as={Link} to="/contact" className='link' >Contact</Nav.Link>
+            <Nav.Link as={Link} to="/payments" className='link' >Payment</Nav.Link>
+            <Nav.Link as={Link} to="/tracklocation" className='link' >Track Location</Nav.Link>
             
           </Nav>
           <Form className=" d-flex ml-auto">
@@ -67,12 +55,13 @@ const Header = () => {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
-          <Button onClick={handleClick} variant="dark">
+          <button onClick={handleClick} className="button link">
             Search
-          </Button>
+          </button>
+          {/* <Button variant='dark'>Search</Button> */}
         </Form>
          <Nav> 
-          <Nav.Link as={Link} to="/login" style={{ color: 'white' }}>
+          <Nav.Link as={Link} to="/login" className='link'>
             Log In
           </Nav.Link>
         </Nav>

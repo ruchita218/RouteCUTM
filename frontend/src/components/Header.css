@@ -1,0 +1,15 @@
+.link{
+    color: white !important; 
+}
+.link:hover{
+    color: rgb(202, 159, 31) !important;
+}
+.button{
+    color: white;
+    width: 80px;
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+
