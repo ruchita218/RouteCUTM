@@ -49,23 +49,16 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="container mt-2">
+          <div className="container mt-3 mb-3">
             <div className="row">
-              <div className="col-md">
-                <h4 >Make Your transport Payments easier with RouteCUTM which provides you excellent security.   <Link to="/payments"><Button variant='dark' className='paynow'>Pay Now</Button></Link> </h4>
+              <div className="col-md payment d-flex">  
+                  <h4 >Make your transport payments easier with <b>RouteCUTM</b> which provides you excellent security.   <Link to="/payments"><Button variant='dark' className='paynow'>Pay Now</Button></Link> </h4>
+              </div>
+              <div className="col location pl-5 d-flex">
+                  <h4 className='container3'>Getting late? Want to know the location of your Bus? <Link to="/tracklocation" className='findlocation'>Track the location of your bus. Click here.</Link></h4>
               </div>
             </div>
           </div>
-
-          <div className="container mt-2">
-          <div className="row">
-            <div className="col">
-              <h4 className='container3'>Getting late? Want to know the location of your Bus? <Link to="/tracklocation" className='findlocation'>Track the location of your bus. Click here.</Link></h4>
-            </div>
-          </div>
-        </div>
-
-        
         <FAQ/>
         <Prefooter/>
         <Footer/>

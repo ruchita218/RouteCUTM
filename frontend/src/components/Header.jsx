@@ -8,10 +8,20 @@ import { Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './Header.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 
 
 const Header = () => {
+
+  // const handleLogout = () => {
+  //   // Handle logout logic here
+  // };
+
+
+   const isloggedIn=true;
 
     const navigate = useNavigate();
 
@@ -45,7 +55,7 @@ const Header = () => {
             <Nav.Link as={Link} to="/tracklocation" className='link' >Track Location</Nav.Link>
             
           </Nav>
-          <Form className=" d-flex ml-auto">
+          <Form className=" d-flex ml-auto" >
           <Form.Control
             type="search"
             placeholder="Search Your Location"
@@ -55,15 +65,20 @@ const Header = () => {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
-          <button onClick={handleClick} className="button link">
+          <button onClick={handleClick} className="button link mr-3">
             Search
           </button>
           {/* <Button variant='dark'>Search</Button> */}
         </Form>
          <Nav> 
+          {isloggedIn?
+           <Link to="/profile" className='p-2'><FontAwesomeIcon icon={faUser} style={{color:"black"}}/></Link>
+          :
           <Nav.Link as={Link} to="/login" className='link'>
             Log In
           </Nav.Link>
+        
+          }
         </Nav>
         </Navbar.Collapse>
         

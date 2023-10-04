@@ -12,6 +12,7 @@ import Disclaimer from "./components/Disclaimer.jsx";
 import PrivacyPolicy from "./components/PrivacyPolicy.jsx";
 import Termsofuses from "./components/Termsofuses.jsx";
 import Blog from "./components/Blog.jsx";
+import Profile from "./components/Profile.jsx"
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
         <Route path="/termsofuses" element={<Termsofuses/>}/>
         <Route path="/blog" element={<Blog/>}/>
+        <Route path="/profile" element={<Profile/>}/>
       </Routes>
       
     </div>
