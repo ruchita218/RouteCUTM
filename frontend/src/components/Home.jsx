@@ -2,7 +2,6 @@ import React from 'react';
 import Header from './Header.jsx';
 import Slider from './Slider.jsx';
 import './Home.css';
-import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import { Link } from "react-router-dom";
 import FAQ from './FAQ.jsx';
@@ -26,10 +25,10 @@ const Home = () => {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Online Payments</td>
+                      <td>Every users will be getting a bus pass</td>
                     </tr>
                     <tr>
-                      <td>Google Map</td>
+                      <td>Daily Attendance</td>
                     </tr>
                     <tr>
                       <td>Internal & External Sanitation</td>
@@ -52,10 +51,10 @@ const Home = () => {
           <div className="container mt-3 mb-3">
             <div className="row">
               <div className="col-md payment d-flex">  
-                  <h4 >Make your transport payments easier with <b>RouteCUTM</b> which provides you excellent security.   <Link to="/payments"><Button variant='dark' className='paynow'>Pay Now</Button></Link> </h4>
+                  <h5 style={{overflowY: 'hidden'}}>Make your daily transport easier with <b>RouteCUTM</b> which provides you excellent security ,sanitation and payments facilities.</h5>
               </div>
               <div className="col location pl-5 d-flex">
-                  <h4 className='container3'>Getting late? Want to know the location of your Bus? <Link to="/tracklocation" className='findlocation'>Track the location of your bus. Click here.</Link></h4>
+                  <h5 className='container3'>Get your transport details on your finger tips with just one click to <b>RouteCUTM </b></h5>
               </div>
             </div>
           </div>

@@ -1,0 +1,12 @@
+@media (max-width: 768px) {
+    .custom-card {
+     margin-left: auto;
+     
+}
+}
+@media (max-width: 576px) {
+    .custom-card {
+     margin: auto;
+     
+}
+}
