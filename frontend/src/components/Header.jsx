@@ -11,14 +11,14 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 
 
-const Header = () => {
+const Header = ({ isLoggedIn, code }) => {
 
   // const handleLogout = () => {
   //   // Handle logout logic here
   // };
 
-   const code="admin";
-   const isloggedIn=true;
+     code="admin";
+     isLoggedIn=false;
 
    const navigate = useNavigate();
 
@@ -50,7 +50,7 @@ const Header = () => {
             )}
           </Nav>
          <Nav> 
-          {isloggedIn?
+          {isLoggedIn?
            <Link to="/profile" className=' pl-0 pt-3 pb-2 mr-2' ><FontAwesomeIcon icon={faUser} style={{color:"black",fontSize:"23px"}}/></Link>
           :
           <Nav.Link as={Link} to="/login" className='link' style={{paddingRight:'10px'}}>

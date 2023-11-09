@@ -1,5 +1,4 @@
 import React,{useState} from 'react';
-import { Link } from 'react-router-dom';
 import Header from './Header';
 import Prefooter from './Prefooter';
 import Footer from './Footer';
@@ -8,14 +7,17 @@ import UserDetails from './UserDetails.jsx';
 import DriverDetails from './DriverDetails.jsx';
 import BusDetails from './BusDetails.jsx';
 import AttendanceDetails from './AttendanceDetails.jsx';
+import './TransportationInfo.css';
 
 
 const TransportationInfo = () => {
-    const [selectedComponent, setSelectedComponent] = useState(null);
+  const [selectedComponent, setSelectedComponent] = useState('userdetails');
 
   const handleNavClick = (componentName) => {
     // Update the selected component based on the clicked link
     setSelectedComponent(componentName);
+
+    
   };
   return (
     <>
@@ -24,29 +26,32 @@ const TransportationInfo = () => {
             <div className="row" >
                 <div className="col">
                 <Nav variant="tabs" defaultActiveKey="/studentdetails" >
-                  <Nav.Item style={{overflowY:'hidden'}} className="col-md-3 col-sm-3 col-xs-3">
-                    <Nav.Link  to="/studentdetails" onClick={() => handleNavClick('userdetails')}>User's Details</Nav.Link>
+                  <Nav.Item style={{overflowY:'hidden'}} className="col-md-3 col-sm-3 col-xs-3 ">
+                    <Nav.Link  to="studentdetails" onClick={() => handleNavClick('userdetails')} className={`${selectedComponent === 'userdetails' ? 'selected-tab' : 'non-selected-tab'}`}>User's Details</Nav.Link>
                   </Nav.Item>
-                  <Nav.Item style={{overflowY:'hidden'}} className="col-md-3 col-sm-3 col-xs-3">
-                    <Nav.Link  to="driverdetails" onClick={() => handleNavClick('driverdetails')}>Driver's Details</Nav.Link>
+                  <Nav.Item style={{overflowY:'hidden'}} className="col-md-3 col-sm-3 col-xs-3 ">
+                    <Nav.Link  to="driverdetails" onClick={() => handleNavClick('driverdetails')} className={`${selectedComponent === 'driverdetails' ? 'selected-tab' : 'non-selected-tab'}`}>Driver's Details</Nav.Link>
                   </Nav.Item>
-                  <Nav.Item style={{overflowY:'hidden'}} className="col-md-3 col-sm-3 col-xs-3">
-                    <Nav.Link  to="busdetails" onClick={() => handleNavClick('busdetails')}>Bus's Details</Nav.Link>
+                  <Nav.Item style={{overflowY:'hidden'}} className="col-md-3 col-sm-3 col-xs-3 ">
+                    <Nav.Link  to="busdetails" onClick={() => handleNavClick('busdetails')} className={`${selectedComponent === 'busdetails' ? 'selected-tab' : 'non-selected-tab'}`}>Bus's Details</Nav.Link>
                   </Nav.Item>
-                  <Nav.Item style={{overflowY:'hidden'}} className="col-md-3 col-sm-3 col-xs-3">
-                    <Nav.Link  to="attendancedetails" onClick={() => handleNavClick('attendancedetails')}>Attendance's Details</Nav.Link>
+                  <Nav.Item style={{overflowY:'hidden'}} className="col-md-3 col-sm-3 col-xs-3 ">
+                    <Nav.Link  to="attendancedetails" onClick={() => handleNavClick('attendancedetails')} className={`${selectedComponent === 'attendancedetails' ? 'selected-tab' : 'non-selected-tab'}`}>Attendance's Details</Nav.Link>
                   </Nav.Item>
                 </Nav>
                 </div>
             </div>
         </div>
-        {selectedComponent === 'userdetails' && <UserDetails />}
-        {selectedComponent === 'driverdetails' && <DriverDetails />}
-        {selectedComponent === 'busdetails' && <BusDetails />}
-        {selectedComponent === 'attendancedetails' && <AttendanceDetails />}
 
-        <Prefooter/>
-        <Footer/>
+        {selectedComponent === 'userdetails' && <UserDetails selectedComponent={selectedComponent}/>}
+        {selectedComponent === 'driverdetails' && <DriverDetails selectedComponent={selectedComponent}/>}
+        {selectedComponent === 'busdetails' && <BusDetails selectedComponent={selectedComponent}/>}
+        {selectedComponent === 'attendancedetails' && <AttendanceDetails selectedComponent={selectedComponent}/>}
+
+        <div >
+          <Prefooter/>
+          <Footer/>
+        </div>
     </>
   )
 }

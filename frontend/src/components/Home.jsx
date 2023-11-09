@@ -11,7 +11,7 @@ import Footer from './Footer.jsx';
 const Home = () => {
   return (
     <>
-        <Header/>
+        <Header />
         <Slider/>
         
           <div className="container mt-4">

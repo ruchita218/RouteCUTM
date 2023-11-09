@@ -4,15 +4,16 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 
-const AttendanceDetails = () => {
+const AttendanceDetails = ({selectedComponent}) => {
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedBusNo, setSelectedBusNo] = useState('');
     const [showTable, setShowTable] = useState(false);
     const [attendance, setAttendance] = useState([]);
+    const [result, setResult] = useState(null);
 
     const handleCheckAttendance = async(e) => {
     e.preventDefault();
-
+    
     if (selectedDate && selectedBusNo) {
       try {
         // Make a POST request using Axios to fetch attendance data
@@ -22,31 +23,62 @@ const AttendanceDetails = () => {
         });
 
         // Assuming the response data is an array of attendance data
-        setAttendance(response.data);
+        //setAttendance(response.data);
+        console.log('Response:', response);
+        if (Array.isArray(response.data)) {
+          // If the response is an array, it's attendance data
+          setAttendance(response.data);
+          setResult(null); 
+          setShowTable(true);
+        } else {
+          setAttendance([]); 
+          setResult(response.data);
+          console.log(result);
+          setShowTable(true);
+        }
 
-        setShowTable(true);
+        //setShowTable(true);
       } catch (error) {
         console.error('Error fetching attendance data:', error);
+        setResult('Error fetching attendance data.');
       }
     } else {
       alert('Please select both date and bus number.');
     }
+  
   };
 
-
+  const handleCloseTable = () => {
+    setShowTable(false);
+    setSelectedDate('');
+    setSelectedBusNo('');
+    setResult(null); // Clear the result
+    setAttendance([]);
+  };
 
   return (
     <>
        <Header/>
        {showTable ? (
           <>
+            {result!==null  && result !== ""?(
+            // Display the result if it exists
+            <div className="container mt-5">
+              <div className="row">
+                <div className="col">
+                  <p>{result}</p>
+                  
+                </div>
+              </div>
+            </div>
+          ) : (
                <div className="container mt-5">
         <div className="row">
           <div className="col">
           <Table responsive="sm" className='mb-5'>
         <thead>
           <tr>
-            <th>Registration No</th>
+            <th>User Email</th>
             <th>Present</th>
             <th>Absent</th>
           </tr>
@@ -54,10 +86,10 @@ const AttendanceDetails = () => {
         <tbody>
         {attendance.map((item) => (
           <tr key={item.id}>
-            <td>{item.userinfo.registrationNo}</td>
+            <td>{item.userEmail}</td>
             <td> 
                 <input type='checkbox'
-                  checked={item.present === 'present'}
+                  checked={item.status === 'present'}
                   readOnly
                 />
             </td>
@@ -65,7 +97,7 @@ const AttendanceDetails = () => {
               
               <input
                 type="checkbox"
-                  checked={item.absent === 'absent'}
+                  checked={item.status === 'absent'}
                   readOnly
               />
 
@@ -77,11 +109,12 @@ const AttendanceDetails = () => {
           </div>
         </div>
       </div>
+          )}
       <div className="container">
         <div className="row">
           <div className="col d-flex justify-content-center">
-            <Button variant="dark" type='submit'className='mb-5 custom-button' >Close</Button> &nbsp; &nbsp;
-            <Button variant="dark" type='submit'className='mb-5 custom-button' >Edit</Button>
+            <Button variant="dark" type='submit'className='mb-5 custom-button' onClick={handleCloseTable}>Close</Button> &nbsp; &nbsp;
+            {/* <Button variant="dark" type='submit'className='mb-5 custom-button' >Edit</Button> */}
           </div>
         </div>
       </div>

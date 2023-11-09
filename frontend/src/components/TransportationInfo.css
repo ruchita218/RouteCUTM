@@ -1,0 +1,6 @@
+.selected-tab{
+    color: brown !important;
+}
+.non-selected-tab{
+    color: black!important;
+}

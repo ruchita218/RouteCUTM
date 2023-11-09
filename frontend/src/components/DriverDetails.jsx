@@ -3,10 +3,11 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
-const DriverDetails = () => {
+const DriverDetails = ({selectedComponent}) => {
   const [driverDetails, setDriverDetails] = useState([]);
 
   useEffect(() => {
+    if (selectedComponent === 'driverdetails') {
     const fetchDriverDetails = async () => {
       try {
         const response = await axios.get('/api/admin/findDrivers');
@@ -17,7 +18,8 @@ const DriverDetails = () => {
     };
 
     fetchDriverDetails();
-  }, []);
+  }
+  }, [selectedComponent]);
 
   return (
     <>
@@ -37,8 +39,8 @@ const DriverDetails = () => {
         <thead>
           <tr >
             <th className="col-md-3 col-sm-3 col-xs-3">Name</th>
-            <th className="col-md-3 col-sm-3 col-xs-3">email</th>
-            <th className="col-md-3 col-sm-3 col-xs-3">Contact</th>
+            <th className="col-md-3 col-sm-3 col-xs-3">Email</th>
+            <th className="col-md-3 col-sm-3 col-xs-3">Contact No</th>
             <th className="col-md-3 col-sm-3 col-xs-3">BusNo</th>
           </tr>
         </thead>
@@ -48,7 +50,7 @@ const DriverDetails = () => {
             <td>{item.name}</td>
             <td>{item.email}</td>
             <td>{item.contactNo}</td>
-            <td>{item.busInfo.busNo}</td>
+            <td>{item.busInfo?item.busInfo.busNo:''}</td>
           </tr>
           ))}
         </tbody>
