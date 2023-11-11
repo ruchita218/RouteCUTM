@@ -11,7 +11,7 @@ const Slider = () => {
     <Carousel.Item interval={1000}>
       <img
         className="d-block w-100"
-        src={Bus2}
+        src={Bus4}
         alt="First slide"
         style={{ backgroundSize:'contain',height:"85vh"}}
        
@@ -20,7 +20,7 @@ const Slider = () => {
     <Carousel.Item interval={1000}>
       <img
         className="d-block w-100"
-        src={Bus4}
+        src={Bus1}
         alt="Second slide"
         style={{ backgroundSize: 'contain', height: '85vh' }}
       />
@@ -29,7 +29,7 @@ const Slider = () => {
     <Carousel.Item interval={1000}>
       <img
         className="d-block w-100"
-        src={Bus1}
+        src={Bus2}
         alt="Third slide"
         style={{ backgroundSize: 'contain', height: '85vh' }}
       />

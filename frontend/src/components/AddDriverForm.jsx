@@ -7,29 +7,15 @@ import Header from './Header';
 import Prefooter from './Prefooter';
 import Footer from './Footer';
 
-const AddUserForm = () => {
+const AddDriverForm = () => {
   const navigate = useNavigate();
   const [addStatus, setAddStatus] = useState('');
-
-    const [busLocations, setBusLocations] = useState([]);
-    useEffect(() => {
-        async function fetchBusLocations() {
-          try {
-            const response = await axios.get('/api/admin/findBuses');
-            setBusLocations(response.data);
-          } catch (error) {
-            console.error('Error fetching bus locations:', error);
-          }
-        }
-        fetchBusLocations();
-      }, []);
 
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
-        location: '',
-        registrationNo: '',
+        contactNo:''
     });
 
     const handleChange=(e)=>{
@@ -43,22 +29,21 @@ const AddUserForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.post('/api/admin/addUser', formData);
-          if (typeof response.data === 'string') {
+          const response = await axios.post('/api/admin/addDriver', formData);
+            if (typeof response.data === 'string') {
               setAddStatus(response.data);
               setFormData({
                 name: '',
                 email: '',
                 password: '',
-                location: '',
-                registrationNo: '',
+                contactNo:''
               });
-              if (addStatus==='User added successfully.') {
+              if (addStatus==='Driver added successfully.') {
                 setTimeout(() => {
                   navigate('/transportationinfo');
                 }, 3000);
               }
-          }
+            }
         } catch (error) {  
           console.log(error);
           setAddStatus('Something went wrong');
@@ -71,7 +56,7 @@ const AddUserForm = () => {
       <div className="container" style={{marginTop:'140px',marginBottom:'20px'}}>
         <div className="row">
           <div className="offset-md-3 col-md-6">
-          <h2 style={{textAlign:'center',overflowY:'hidden',color:'brown'}}>Add User</h2>
+          <h2 style={{textAlign:'center',overflowY:'hidden',color:'brown'}}>Add Driver</h2>
           <Form onSubmit={handleSubmit} method='POST'>
         <Form.Group className="mb-3" controlId="formGroupEmail">
           <Form.Label>Name</Form.Label>
@@ -91,20 +76,11 @@ const AddUserForm = () => {
           onChange={handleChange}/>
         </Form.Group>
 
-        <Form.Select aria-label="Default select example" name="location" value={formData.location}
-          onChange={handleChange}>
-            <option>Select Location</option>
-            {busLocations.map((location) => (
-              <option key={location.id} value={location.location}>
-                {location.location}
-              </option>
-            ))}
-        </Form.Select>
 
         <Form.Group className="mb-3" controlId="formGroupPassword">
-          <Form.Label className='mt-2'>Enter Registration No</Form.Label>
-          <Form.Control type="number" placeholder="RegistrationNo" name="registrationNo"
-          value={formData.registrationNo}
+          <Form.Label className='mt-2'>Contact No</Form.Label>
+          <Form.Control type="number" placeholder="Contact No" name="contactNo"
+          value={formData.contactNo}
           onChange={handleChange}/>
         </Form.Group>
 
@@ -126,4 +102,4 @@ const AddUserForm = () => {
   )
 }
 
-export default AddUserForm
+export default AddDriverForm

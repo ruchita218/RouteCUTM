@@ -1,5 +1,5 @@
 import './App.css';
-import {Routes,Route} from "react-router-dom";
+import {Router,Routes,Route} from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About.jsx";
 import Contact from "./components/Contact.jsx";
@@ -13,6 +13,9 @@ import Blog from "./components/Blog.jsx";
 import Profile from "./components/Profile.jsx";
 import Attendance from './components/Attendance.jsx';
 import TransportationInfo from './components/TransportationInfo.jsx'
+import AddUserForm from './components/AddUserForm.jsx';
+import AddDriverForm from './components/AddDriverForm.jsx';
+import AddBusForm from './components/AddBusForm.jsx';
 
 
 function App() {
@@ -32,7 +35,12 @@ function App() {
         <Route path="/profile" element={<Profile/>}/>
         <Route path='/attendance' element={<Attendance/>}/>
         <Route path='/transportationinfo' element={<TransportationInfo/>}/>
+        <Route path='/addUser' element={<AddUserForm/>}/>
+        <Route path='/addDriver' element={<AddDriverForm/>}/>
+        <Route path='/addBus' element={<AddBusForm/>}/>
+        
       </Routes>
+
       
     </div>
   );

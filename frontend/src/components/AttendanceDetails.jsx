@@ -16,26 +16,34 @@ const AttendanceDetails = ({selectedComponent}) => {
     
     if (selectedDate && selectedBusNo) {
       try {
-        // Make a POST request using Axios to fetch attendance data
         const response = await axios.post('/api/admin/attendanceDetails', {
           date: selectedDate,
           busNo: selectedBusNo,
         });
-
-        // Assuming the response data is an array of attendance data
-        //setAttendance(response.data);
         console.log('Response:', response);
-        if (Array.isArray(response.data)) {
-          // If the response is an array, it's attendance data
-          setAttendance(response.data);
-          setResult(null); 
-          setShowTable(true);
-        } else {
+        if (typeof response.data === 'string') {
           setAttendance([]); 
           setResult(response.data);
           console.log(result);
           setShowTable(true);
+        } 
+        else{
+          setAttendance(response.data);
+          setResult(null); 
+          setShowTable(true);
         }
+        // if (Array.isArray(response.data)) {
+        //   // If the response is an array, it's attendance data
+        //   setAttendance(response.data);
+        //   setResult(null); 
+        //   setShowTable(true);
+        // } 
+        // else {
+        //   setAttendance([]); 
+        //   setResult(response.data);
+        //   console.log(result);
+        //   setShowTable(true);
+        // }
 
         //setShowTable(true);
       } catch (error) {
@@ -67,7 +75,6 @@ const AttendanceDetails = ({selectedComponent}) => {
               <div className="row">
                 <div className="col">
                   <p>{result}</p>
-                  
                 </div>
               </div>
             </div>
@@ -140,7 +147,7 @@ const AttendanceDetails = ({selectedComponent}) => {
         <div className="row">
             <div className="col d-flex justify-content-center mb-2 mt-3">
                 <h5 style={{overflowY:'hidden'}}>Select Bus No</h5> &nbsp;&nbsp;
-                <input type='text' required name='busNo' value={selectedBusNo}
+                <input type='number' required name='busNo' value={selectedBusNo}
                   onChange={(e) => setSelectedBusNo(e.target.value)} style={{textAlign:'center'}}></input>
             </div>
         </div>

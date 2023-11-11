@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useContext,useEffect} from 'react';
 import {useNavigate} from "react-router-dom"
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -8,17 +8,38 @@ import { Link } from "react-router-dom";
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+import { loginStorage } from './LoginStorage';
 
 
 
-const Header = ({ isLoggedIn, code }) => {
+const Header = () => {
+
+  //const loginDetails = useSelector((state) => state.loginDetails);
+  //console.log(loginStorage.details);
+
+  // useEffect(() => {
+  //   console.log(loginStorage.details); // This will log when loginStorage.details gets updated
+  // }, [loginStorage.details]);
+
+  //console.log(loginDetails);
 
   // const handleLogout = () => {
   //   // Handle logout logic here
   // };
 
-     code="admin";
-     isLoggedIn=false;
+      // const code="admin";
+      // const isLoggedIn=false;
+
+    // const hasCodeProperty = 'code' in loginStorage.details;
+    // const isLoggedIn = hasCodeProperty;
+    // const code = hasCodeProperty ? loginStorage.details.code : '';
+
+    const isLoggedIn = loginStorage.details && loginStorage.details.code !== '';
+    const code = isLoggedIn ? loginStorage.details.code : '';
+
+    // console.log(isLoggedIn);
+    // console.log(code);
 
    const navigate = useNavigate();
 

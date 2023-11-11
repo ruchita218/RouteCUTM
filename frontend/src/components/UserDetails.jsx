@@ -4,14 +4,14 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
-import AddUserForm from './AddUserForm.jsx';
+// import AddUserForm from './AddUserForm.jsx';
 
 const UserDetails = ({ selectedComponent }) => {
   const [userDetails, setUserDetails] = useState([]);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState(null);
-  const [showUserForm, setShowUserForm] = useState(false);
+  //const [showUserForm, setShowUserForm] = useState(false);
 
   const fetchUserDetails = async () => {
     try {
@@ -38,24 +38,19 @@ const UserDetails = ({ selectedComponent }) => {
     try {
       const response = await axios.delete(`/api/admin/deleteUser/${userIdToDelete}`);
       if (response.status === 200) {
-        // Delete was successful, update the user details
-        // or any other necessary action here
         setShowModal(false);
         fetchUserDetails();
-        //here i want to call the fetchUserDetails function in useEffect
       } else {
-        // Handle the error if needed
         setShowModal(false);
       }
     } catch (error) {
-      // Handle the error if needed
       setShowModal(false);
     }
   };
 
-  const toggleUserForm = () => {
-    setShowUserForm(!showUserForm);
-  };
+  // const toggleUserForm = () => {
+  //   setShowUserForm(!showUserForm);
+  // };
 
   return (
     <>
@@ -63,7 +58,7 @@ const UserDetails = ({ selectedComponent }) => {
         <div className="row">
             <div className="col d-flex justify-content-center">
             
-            <Button variant="dark" type='submit'className='mb-5 custom-button' onClick={toggleUserForm}>Add User</Button>&nbsp;&nbsp;
+              <Link to='/addUser'><Button variant="dark" type='submit'className='mb-5 custom-button'>Add User</Button></Link>&nbsp;&nbsp;
               {/* <Button variant="dark" type='submit'className='mb-5 custom-button' >Delete User</Button> */}
             </div>
         </div>
@@ -113,7 +108,7 @@ const UserDetails = ({ selectedComponent }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      {showUserForm && <AddUserForm/>}
+      {/* {showUserForm && <AddUserForm/>} */}
       </div>
         </div>
       </div>

@@ -1,4 +1,6 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
+import { useDispatch } from 'react-redux';
+import { setLoginDetails } from './redux/actions';
 import "./Login.css";
 import logo from '../images/CenturionLogo.webp';
 import Button from 'react-bootstrap/Button';
@@ -6,58 +8,74 @@ import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { Link ,useNavigate} from "react-router-dom";
 import Footer from './Footer';
+import { login } from './redux/actions';
+import { loginStorage } from './LoginStorage';
 
 const Login = () => {
 
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [codeType, setCodeType] = useState('');
+  //const [codeType, setCodeType] = useState('');
+  
   const [loginStatus, setLoginStatus] = useState('');
   const[loginDetails,setLoginDetails]=useState({});
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log('loginStatus has been updated:', loginStatus);
-    //console.log('loginDetails has been updated:', loginDetails);
-  }, [loginStatus, loginDetails]);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     
     e.preventDefault();
     try {
-        let apiEndpoint = '';
-        if (codeType === 'admin') {
-          apiEndpoint = 'http://localhost:8080/api/admin/login';
-        } else if (codeType === 'user') {
-          apiEndpoint = 'http://localhost:8080/api/users/login';
-        } else if (codeType === 'driver') {
-          apiEndpoint = 'http://localhost:8080/api/driver/login';
-        }
+        
+        // let apiEndpoint = '';
+        // if (codeType==='') {
+        //   setLoginStatus('Please select Log In as');
+        //   return;
+        // }
+        // if (codeType === 'admin') {
+        //   apiEndpoint = 'http://localhost:8080/api/admin/login';
+        // } else if (codeType === 'user') {
+        //   apiEndpoint = 'http://localhost:8080/api/users/login';
+        // } else if (codeType === 'driver') {
+        //   apiEndpoint = 'http://localhost:8080/api/driver/login';
+        // }
+
+        let apiEndpoint='/api/login';
         const response = await axios.post(apiEndpoint, {
         email,
         password,
       });
       // setLoginStatus(response.data);
 
-      console.log('Response from server:', response.data);
-      //if (typeof response.data === 'string') {
-        if (response.status == 404) {
+      //console.log('Response from server:', response.data);
+      if (typeof response.data === 'string') {
+        // if (response.status == 404) {
         setLoginStatus(response.data);
       } else {
         setLoginStatus('Logged in successfully');
-        setLoginDetails(response.data);        
+        setLoginDetails(response.data); 
+        // if (loginDetails.id!=null) {
+        //   loginStorage.details = response.data;
+        // }
+        loginStorage.details = response.data;
+        //console.log(loginStorage.details);
+        //dispatch(login(response.data)); 
+        //dispatch(setLoginDetails(response.data));
         setTimeout(() => {
-          navigate('/', { state: { isLoggedIn: true, code: codeType } });
-        }, 5000);
+          // navigate('/', { state: { isLoggedIn: true, code: codeType } });
+          navigate('/');
+        }, 2000);
       }
       
     } catch (error) {
       console.error('Error logging in:', error);
-      setLoginStatus(error.response.data);  
+      setLoginStatus("Something went wrong ,you cannot Login.Please contact to Transportation Cell");  
     }
   };
 
+  console.log(loginStorage.details);
 
   return (
     <>
@@ -87,13 +105,13 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}/>
               </Form.Group>
 
-              <Form.Select aria-label="Default select example" className="mb-3" name='code' value={codeType}
+              {/* <Form.Select aria-label="Default select example" className="mb-3" name='code' value={codeType}
                 onChange={(e) => setCodeType(e.target.value)} required>
                 <option>Log in as</option>
                 <option value="user">user</option>
                 <option value="admin">admin</option>
                 <option value="driver">driver</option>
-              </Form.Select>
+              </Form.Select> */}
 
               <Button variant="primary" type="submit" className="mb-3">
                 Login
