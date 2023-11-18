@@ -14,6 +14,12 @@ const DriverDetails = ({selectedComponent}) => {
 
   const navigate=useNavigate();
 
+  useEffect(() => {
+    if (isLoggedIn!==true) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
+
   const fetchDriverDetails = async () => {
     try {
       const response = await axios.get('/api/admin/findDrivers');
@@ -51,7 +57,7 @@ const DriverDetails = ({selectedComponent}) => {
 
   return (
     <>
-      {isLoggedIn===true?(
+      {/* {isLoggedIn===true?( */}
         <>
         <div className="container">
         <div className="row">
@@ -103,7 +109,7 @@ const DriverDetails = ({selectedComponent}) => {
         </div>
       </div>
      </>
-      ):(navigate('/'))}
+      {/* ):(navigate('/'))} */}
     </>
   )
 }

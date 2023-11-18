@@ -120,7 +120,7 @@ const Register = () => {
             </Form.Group>
 
 
-            <Button variant="primary" type="submit" className="mb-3">
+            <Button variant="dark" type="submit" className="mb-3">
               Register
             </Button>
 

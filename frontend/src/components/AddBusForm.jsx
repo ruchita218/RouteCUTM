@@ -6,10 +6,19 @@ import Button from 'react-bootstrap/Button';
 import Header from './Header';
 import Prefooter from './Prefooter';
 import Footer from './Footer';
+import { loginStorage } from './LoginStorage';
 
 const AddBusForm = () => {
   const navigate = useNavigate();
   const [addStatus, setAddStatus] = useState('');
+
+  const isLoggedIn = loginStorage.details && loginStorage.details.code !== '' && loginStorage.details.code !== undefined;
+
+  useEffect(() => {
+    if (isLoggedIn!==true) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
     const [formData, setFormData] = useState({
         busNo: '',
@@ -51,7 +60,7 @@ const AddBusForm = () => {
   return (
     <>
       <Header/>
-      <div className="container" style={{marginTop:'140px',marginBottom:'20px'}}>
+      <div className="container" style={{marginTop:'140px',marginBottom:'20px',backgroundColor:'#F7F7F7'}}>
         <div className="row">
           <div className="offset-md-3 col-md-6">
             <h2 style={{textAlign:'center',overflowY:'hidden',color:'brown'}}>Add Bus</h2>
@@ -75,7 +84,7 @@ const AddBusForm = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Button variant="primary" type="submit">
+          <Button variant="dark" type="submit">
             Add
           </Button>
         </Form.Group>

@@ -1,9 +1,11 @@
-import React,{useState,useEffect,useRef} from 'react';
+import React,{useState,useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import Prefooter from './Prefooter';
 import Footer from './Footer';
 import Header from './Header';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import { Form } from 'react-bootstrap';
 import "./Attendance.css";
 import { loginStorage } from './LoginStorage';
 import axios from 'axios';
@@ -17,13 +19,34 @@ const Attendance = () => {
   const busNo=isLoggedIn?loginStorage.details.busInfo?loginStorage.details.busInfo.busNo:'':''
   const driverEmail=isLoggedIn?loginStorage.details.email:'';
 
+  const navigate=useNavigate();
+
+  const getCurrentDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = `${(now.getMonth() + 1).toString().padStart(2, '0')}`;
+    const day = `${now.getDate().toString().padStart(2, '0')}`;
+    return `${year}-${month}-${day}`;
+  };
+
   const [users, setUsers] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const[attendanceMsg,setAttMsg]=useState('');
   const [selectedStatus, setSelectedStatus] = useState({});
   const [attendance, setAttendance] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(getCurrentDate());
+
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
+  };
   
   let uniqueAttendance;
+
+  useEffect(() => {
+    if (isLoggedIn!==true) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   useEffect(() => {
     //console.log(attendance);
@@ -96,15 +119,6 @@ const Attendance = () => {
     // console.log(driverEmail);
   };
 
-  
-
-  const getCurrentDate = () => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = `${(now.getMonth() + 1).toString().padStart(2, '0')}`;
-    const day = `${now.getDate().toString().padStart(2, '0')}`;
-    return `${year}-${month}-${day}`;
-  };
 
   const fetchData = async () => {
     try {
@@ -116,7 +130,7 @@ const Attendance = () => {
         setUsers(response.data);
       }
     } catch (error) {
-      console.error('Error fetching data: ', error);
+      //console.error('Error fetching data: ', error);
       setErrorMessage('Something went wrong ,please contact to transportation cell.');
     }
   };
@@ -132,7 +146,7 @@ const Attendance = () => {
         <div className="row">
           <div className="col d-flex justify-content-center">
             <h5 style={{marginTop:'140px',overflowY:'hidden'}}>Select Date</h5> &nbsp;&nbsp;
-            <input type="date" id="start" required name="date" min={getCurrentDate()} max={getCurrentDate()} value={getCurrentDate()} style={{marginTop:'130px',
+            <input type="date" id="start" required name="date" min={getCurrentDate()} max={getCurrentDate()} value={getCurrentDate()} onChange={handleDateChange} style={{marginTop:'130px',
               padding: '10px',   
               border: '1px solid #ccc', 
               borderRadius: '5px',      

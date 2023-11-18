@@ -9,8 +9,6 @@ import Prefooter from './Prefooter';
 import Footer from './Footer';
 
 const CheckAttendance = () => {
-
-    console.log('CheckAttendance component rendered');
     
     const navigate=useNavigate();
 
@@ -22,6 +20,12 @@ const CheckAttendance = () => {
     const [showTable, setShowTable] = useState(false);
     const [attendance, setAttendance] = useState([]);
     const [result, setResult] = useState(null);
+
+    useEffect(() => {
+      if (isLoggedIn!==true) {
+        navigate('/');
+      }
+    }, [isLoggedIn, navigate]);
 
     const handleCheckAttendance = async(e) => {
     e.preventDefault();
@@ -63,7 +67,7 @@ const CheckAttendance = () => {
 
   return (
     <>
-      {isLoggedIn===true?(
+      {/* {isLoggedIn===true?( */}
         <>
        <Header/>
        <div style={{marginTop:'150px'}}>
@@ -158,7 +162,7 @@ const CheckAttendance = () => {
        <Prefooter/>
        <Footer/>
       </>
-       ):(navigate('/'))}
+       {/* ):(navigate('/'))} */}
     </>
   )
 }

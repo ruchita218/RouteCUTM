@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Header from './Header';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
@@ -16,6 +16,12 @@ const AttendanceDetails = ({selectedComponent}) => {
     const [showTable, setShowTable] = useState(false);
     const [attendance, setAttendance] = useState([]);
     const [result, setResult] = useState(null);
+
+    useEffect(() => {
+      if (isLoggedIn!==true) {
+        navigate('/');
+      }
+    }, [isLoggedIn, navigate]);
 
     const handleCheckAttendance = async(e) => {
     e.preventDefault();
@@ -72,7 +78,7 @@ const AttendanceDetails = ({selectedComponent}) => {
 
   return (
     <>
-      {isLoggedIn===true?(
+      {/* {isLoggedIn===true?( */}
         <>
        <Header/>
        {showTable ? (
@@ -169,7 +175,7 @@ const AttendanceDetails = ({selectedComponent}) => {
         </form>
        )}
       </>
-      ):(navigate('/'))}
+      {/* ):(navigate('/'))} */}
     </>
   )
 }

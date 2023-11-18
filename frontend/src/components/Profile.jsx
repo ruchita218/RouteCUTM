@@ -22,7 +22,7 @@ const Profile = () => {
   const code = isLoggedIn ? loginStorage.details.code : '';
   const id=isLoggedIn ? loginStorage.details.id : '';
 
-  // console.log(isLoggedIn);
+  console.log(isLoggedIn);
   // console.log(id);
 
   const navigate=useNavigate();
@@ -70,6 +70,12 @@ const Profile = () => {
       console.error('Error fetching bus locations:', error);
     }
   }
+
+  useEffect(() => {
+    if (isLoggedIn!==true) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   useEffect(() => {
     fetchBusLocations();
@@ -145,7 +151,7 @@ const Profile = () => {
 
   return (
     <>
-    {/* {isLoggedIn===true?( */}
+    {isLoggedIn===true?(
     <>
     <Header/>
     <div className="container profile" style={{marginTop: '150px'}}>
@@ -251,9 +257,9 @@ const Profile = () => {
     <Prefooter/>
     <Footer/>
     </>
-    {/* ):(navigate('/'))} */}
+    ):(null)} 
     
     </>
-  )
-}
+  );
+};
 export default Profile

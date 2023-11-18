@@ -1,5 +1,6 @@
 .selected-tab{
     color: brown !important;
+    font-weight: 700 !important;
 }
 .non-selected-tab{
     color: black!important;

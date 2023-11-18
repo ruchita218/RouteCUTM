@@ -1,4 +1,5 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Prefooter from './Prefooter';
 import Footer from './Footer';
@@ -16,12 +17,19 @@ const TransportationInfo = () => {
   const code = isLoggedIn ? loginStorage.details.code : '';
   const [selectedComponent, setSelectedComponent] = useState('userdetails');
 
+  const navigate=useNavigate();
+
   const handleNavClick = (componentName) => {
     // Update the selected component based on the clicked link
     setSelectedComponent(componentName);
-
-    
   };
+
+  useEffect(() => {
+    if (isLoggedIn!==true) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
+
   return (
     <>
         <Header/>

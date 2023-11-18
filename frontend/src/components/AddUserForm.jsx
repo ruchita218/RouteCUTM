@@ -6,12 +6,19 @@ import Button from 'react-bootstrap/Button';
 import Header from './Header';
 import Prefooter from './Prefooter';
 import Footer from './Footer';
+import { loginStorage } from './LoginStorage';
 
 const AddUserForm = () => {
+  const isLoggedIn = loginStorage.details && loginStorage.details.code !== '' && loginStorage.details.code !== undefined;
   const navigate = useNavigate();
   const [addStatus, setAddStatus] = useState('');
 
     const [busLocations, setBusLocations] = useState([]);
+    useEffect(() => {
+      if (isLoggedIn!==true) {
+        navigate('/');
+      }
+    }, [isLoggedIn, navigate]);
     useEffect(() => {
         async function fetchBusLocations() {
           try {
@@ -68,7 +75,7 @@ const AddUserForm = () => {
   return (
     <>
       <Header/>
-      <div className="container" style={{marginTop:'140px',marginBottom:'20px'}}>
+      <div className="container" style={{marginTop:'140px',marginBottom:'20px',backgroundColor:'#F7F7F7'}}>
         <div className="row">
           <div className="offset-md-3 col-md-6">
           <h2 style={{textAlign:'center',overflowY:'hidden',color:'brown'}}>Add User</h2>
@@ -109,14 +116,14 @@ const AddUserForm = () => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Button variant="primary" type="submit">
+          <Button variant="dark" type="submit">
             Add
           </Button>
         </Form.Group>
       
         <p>{addStatus}</p>
     
-    </Form>
+       </Form>
           </div>
         </div>
       </div>

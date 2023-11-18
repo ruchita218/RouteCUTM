@@ -19,6 +19,12 @@ const UserDetails = ({ selectedComponent }) => {
 
   const navigate=useNavigate();
 
+  useEffect(() => {
+    if (isLoggedIn!==true) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
+
   //const [showUserForm, setShowUserForm] = useState(false);
 
   const fetchUserDetails = async () => {
@@ -67,13 +73,13 @@ const UserDetails = ({ selectedComponent }) => {
 
   return (
     <>
-      {isLoggedIn===true?(
+      {/* {isLoggedIn===true?( */}
         <>
         <div className="container">
         <div className="row">
             <div className="col d-flex justify-content-center">
             
-              <Link to='/addUser'><Button variant="dark" type='submit'className='mb-5 custom-button'>Add User</Button></Link>&nbsp;&nbsp;
+              <Link to='/addUser'><Button variant="dark" type='submit'className='mb-5 custom-button' >Add User</Button></Link>&nbsp;&nbsp;
               {/* <Button variant="dark" type='submit'className='mb-5 custom-button' >Delete User</Button> */}
             </div>
         </div>
@@ -128,7 +134,7 @@ const UserDetails = ({ selectedComponent }) => {
         </div>
       </div>
       </>
-      ):(navigate('/'))}
+      {/* ):(navigate('/'))} */}
       
     </>
 )}

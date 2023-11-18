@@ -19,6 +19,12 @@ const BusDetails = ({selectedComponent}) => {
 
   const navigate=useNavigate();
 
+  useEffect(() => {
+    if (isLoggedIn!==true) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
+
   const fetchBusDetails = async () => {
     try {
       const response = await axios.get('/api/admin/findBuses');
@@ -84,7 +90,7 @@ const BusDetails = ({selectedComponent}) => {
 
   return (
     <>  
-      {isLoggedIn===true?(
+      {/* {isLoggedIn===true?( */}
         <>
         <div className="container">
         <div className="row">
@@ -167,7 +173,7 @@ const BusDetails = ({selectedComponent}) => {
         </div>
       </div>
       </>
-      ):(navigate('/'))}
+      {/* ):(navigate('/'))} */}
     </>
   )
 }
