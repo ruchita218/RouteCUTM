@@ -56,7 +56,7 @@ const AddUserForm = () => {
               if (addStatus==='User added successfully.') {
                 setTimeout(() => {
                   navigate('/transportationinfo');
-                }, 3000);
+                }, 2000);
               }
           }
         } catch (error) {  
