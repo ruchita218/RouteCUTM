@@ -8,9 +8,12 @@ import DriverDetails from './DriverDetails.jsx';
 import BusDetails from './BusDetails.jsx';
 import AttendanceDetails from './AttendanceDetails.jsx';
 import './TransportationInfo.css';
+import { loginStorage } from './LoginStorage.js';
 
 
 const TransportationInfo = () => {
+  const isLoggedIn = loginStorage.details && loginStorage.details.code !== '' && loginStorage.details.code !== undefined;
+  const code = isLoggedIn ? loginStorage.details.code : '';
   const [selectedComponent, setSelectedComponent] = useState('userdetails');
 
   const handleNavClick = (componentName) => {
@@ -25,20 +28,22 @@ const TransportationInfo = () => {
         <div className="container" style={{marginTop:'130px' ,marginBottom:'40px'}}>
             <div className="row" >
                 <div className="col">
-                <Nav variant="tabs" defaultActiveKey="/studentdetails" >
+                {/* {isLoggedIn===true && ( */}
+                  <Nav variant="tabs" defaultActiveKey="/studentdetails" >
                   <Nav.Item style={{overflowY:'hidden'}} className="col-md-3 col-sm-3 col-xs-3 ">
-                    <Nav.Link  to="studentdetails" onClick={() => handleNavClick('userdetails')} className={`${selectedComponent === 'userdetails' ? 'selected-tab' : 'non-selected-tab'}`}>User's Details</Nav.Link>
+                    <Nav.Link  to="#" onClick={() => handleNavClick('userdetails')} className={`${selectedComponent === 'userdetails' ? 'selected-tab' : 'non-selected-tab'}`}>User's Details</Nav.Link>
                   </Nav.Item>
                   <Nav.Item style={{overflowY:'hidden'}} className="col-md-3 col-sm-3 col-xs-3 ">
-                    <Nav.Link  to="driverdetails" onClick={() => handleNavClick('driverdetails')} className={`${selectedComponent === 'driverdetails' ? 'selected-tab' : 'non-selected-tab'}`}>Driver's Details</Nav.Link>
+                    <Nav.Link  to="#" onClick={() => handleNavClick('driverdetails')} className={`${selectedComponent === 'driverdetails' ? 'selected-tab' : 'non-selected-tab'}`}>Driver's Details</Nav.Link>
                   </Nav.Item>
                   <Nav.Item style={{overflowY:'hidden'}} className="col-md-3 col-sm-3 col-xs-3 ">
-                    <Nav.Link  to="busdetails" onClick={() => handleNavClick('busdetails')} className={`${selectedComponent === 'busdetails' ? 'selected-tab' : 'non-selected-tab'}`}>Bus's Details</Nav.Link>
+                    <Nav.Link  to="#" onClick={() => handleNavClick('busdetails')} className={`${selectedComponent === 'busdetails' ? 'selected-tab' : 'non-selected-tab'}`}>Bus's Details</Nav.Link>
                   </Nav.Item>
                   <Nav.Item style={{overflowY:'hidden'}} className="col-md-3 col-sm-3 col-xs-3 ">
-                    <Nav.Link  to="attendancedetails" onClick={() => handleNavClick('attendancedetails')} className={`${selectedComponent === 'attendancedetails' ? 'selected-tab' : 'non-selected-tab'}`}>Attendance's Details</Nav.Link>
+                    <Nav.Link  to="#" onClick={() => handleNavClick('attendancedetails')} className={`${selectedComponent === 'attendancedetails' ? 'selected-tab' : 'non-selected-tab'}`}>Attendance's Details</Nav.Link>
                   </Nav.Item>
                 </Nav>
+                {/* )} */}
                 </div>
             </div>
         </div>

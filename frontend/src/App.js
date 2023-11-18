@@ -9,13 +9,14 @@ import ImageGallery from "./components/ImageGallery.jsx";
 import Disclaimer from "./components/Disclaimer.jsx";
 import PrivacyPolicy from "./components/PrivacyPolicy.jsx";
 import Termsofuses from "./components/Termsofuses.jsx";
-import Blog from "./components/Blog.jsx";
 import Profile from "./components/Profile.jsx";
 import Attendance from './components/Attendance.jsx';
 import TransportationInfo from './components/TransportationInfo.jsx'
 import AddUserForm from './components/AddUserForm.jsx';
 import AddDriverForm from './components/AddDriverForm.jsx';
 import AddBusForm from './components/AddBusForm.jsx';
+import CheckAttendance from './components/CheckAttendance.jsx';
+import PageNotFound from './components/PageNotFound.jsx'
 
 
 function App() {
@@ -31,13 +32,14 @@ function App() {
         <Route path="/disclaimer" element={<Disclaimer/>}/>
         <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
         <Route path="/termsofuses" element={<Termsofuses/>}/>
-        <Route path="/blog" element={<Blog/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path='/attendance' element={<Attendance/>}/>
         <Route path='/transportationinfo' element={<TransportationInfo/>}/>
         <Route path='/addUser' element={<AddUserForm/>}/>
         <Route path='/addDriver' element={<AddDriverForm/>}/>
         <Route path='/addBus' element={<AddBusForm/>}/>
+        <Route path='/checkAttendance' element={<CheckAttendance/>}/>
+        <Route path='*' element={<PageNotFound/>}/>
         
       </Routes>
 

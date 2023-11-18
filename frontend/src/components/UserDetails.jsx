@@ -4,13 +4,21 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
+import { loginStorage } from './LoginStorage';
+import { useNavigate } from 'react-router-dom';
 // import AddUserForm from './AddUserForm.jsx';
 
 const UserDetails = ({ selectedComponent }) => {
+  const isLoggedIn = loginStorage.details && loginStorage.details.code !== '' && loginStorage.details.code !== undefined;
+  console.log(loginStorage.details);
+  console.log(isLoggedIn);
   const [userDetails, setUserDetails] = useState([]);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState(null);
+
+  const navigate=useNavigate();
+
   //const [showUserForm, setShowUserForm] = useState(false);
 
   const fetchUserDetails = async () => {
@@ -24,10 +32,15 @@ const UserDetails = ({ selectedComponent }) => {
   };
 
   useEffect(() => {
+    // if(isLoggedIn===false){
+    //   navigate('/');
+    //   return;
+    // }
     if (selectedComponent === 'userdetails') {
     fetchUserDetails();
   }
   }, [selectedComponent]);
+ // [selectedComponent]
 
   const handleDeleteUser = (userId) => {
     setUserIdToDelete(userId);
@@ -54,7 +67,9 @@ const UserDetails = ({ selectedComponent }) => {
 
   return (
     <>
-      <div className="container">
+      {isLoggedIn===true?(
+        <>
+        <div className="container">
         <div className="row">
             <div className="col d-flex justify-content-center">
             
@@ -67,7 +82,7 @@ const UserDetails = ({ selectedComponent }) => {
       <div className="container">
         <div className="row">
             <div className="col">
-            <Table responsive className='mb-5'>
+            <Table responsive="sm" className='mb-5'>
         <thead>
           <tr >
             <th className="col-md-3 col-sm-3 col-xs-3">Name</th>
@@ -112,6 +127,8 @@ const UserDetails = ({ selectedComponent }) => {
       </div>
         </div>
       </div>
+      </>
+      ):(navigate('/'))}
       
     </>
 )}

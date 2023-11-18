@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import Prefooter from './Prefooter';
 import Footer from './Footer';
 import Header from './Header';
@@ -11,18 +11,11 @@ import axios from 'axios';
 const Attendance = () => {
 
 
-  const isLoggedIn = loginStorage.details && loginStorage.details.code !== '';
+  const isLoggedIn = loginStorage.details && loginStorage.details.code !== '' && loginStorage.details.code !== undefined;
   const code = isLoggedIn ? loginStorage.details.code : '';
   const id=isLoggedIn ? loginStorage.details.id : '';
   const busNo=isLoggedIn?loginStorage.details.busInfo?loginStorage.details.busInfo.busNo:'':''
   const driverEmail=isLoggedIn?loginStorage.details.email:'';
-
-  
-
-  // console.log(loginStorage);
-  // console.log(id);
-  // console.log(busNo);
-  // console.log(driverEmail);
 
   const [users, setUsers] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
@@ -34,7 +27,6 @@ const Attendance = () => {
 
   useEffect(() => {
     //console.log(attendance);
-    // Create a set to store unique keys
     const uniqueKeysMap = new Map();
 
     attendance.forEach((obj) => {
@@ -42,18 +34,13 @@ const Attendance = () => {
       uniqueKeysMap.set(key, obj);
     });
     
-    // Convert the map values back to an array
-     uniqueAttendance = Array.from(uniqueKeysMap.values());
-
+    uniqueAttendance = Array.from(uniqueKeysMap.values());
     // console.log(uniqueAttendance);
-        //now here i want to check if the attendance contains the duplicate object i.e one with present and one with absent then it removes the earlier one from the attendance and keeps the newer one using some kind of filter method of array or any other
   }, [attendance]);
 
 
   const handleSubmit=async(e)=>{
     e.preventDefault();
-
-    // Check if uniqueAttendance is empty
     if (!uniqueAttendance || uniqueAttendance.length === 0) {
       setAttMsg('Please select attendance for all users.');
       setTimeout(() => setAttMsg(''), 5000);
@@ -102,8 +89,6 @@ const Attendance = () => {
     setAttendance((prevAttendance) => [...prevAttendance, newAttendanceObject]);
     //console.log(newAttendanceObject);
     //console.log(attendance);
-
-    
     // console.log(userId);
     // console.log(newStatus);
     // console.log(date);
@@ -115,7 +100,6 @@ const Attendance = () => {
 
   const getCurrentDate = () => {
     const now = new Date();
-    //return now.toISOString().split('T')[0];
     const year = now.getFullYear();
     const month = `${(now.getMonth() + 1).toString().padStart(2, '0')}`;
     const day = `${now.getDate().toString().padStart(2, '0')}`;
@@ -130,11 +114,6 @@ const Attendance = () => {
       } else {
         // setAttendance(response.data);
         setUsers(response.data);
-        //console.log(users[0]);
-        // const today = getCurrentDate();
-        // document.getElementById('start').value = today;
-        // document.getElementById('start').min = today;
-        // document.getElementById('start').max = today;
       }
     } catch (error) {
       console.error('Error fetching data: ', error);
@@ -144,10 +123,6 @@ const Attendance = () => {
 
 
   useEffect(() => {
-    //const today = getCurrentDate();
-    //document.getElementById('start').value = today;
-    //document.getElementById('start').min = today;
-    //document.getElementById('start').max = today;
     fetchData();
   },[],[id]);
   return (
@@ -202,9 +177,6 @@ const Attendance = () => {
               <input
                 type="checkbox"
                 name={`status-${item.id}`}
-                //name="status"
-                // value="present"
-                //checked={item.status === 'present'}
                 checked={selectedStatus[item.id] === 'present'}
                 onChange={() => handleStatusChange(item.id,item.email, 'present',getCurrentDate(),busNo,driverEmail)}
               />
@@ -214,9 +186,6 @@ const Attendance = () => {
               <input
                 type="checkbox"
                 name={`status-${item.id}`}
-                //name="status"
-                // value="absent"
-                //checked={item.status === 'absent'}
                 checked={selectedStatus[item.id] === 'absent'}
                 onChange={() => handleStatusChange(item.id, item.email,'absent',getCurrentDate(),busNo,driverEmail)}
               />
@@ -233,22 +202,13 @@ const Attendance = () => {
       <div className="row">
         <div className="col d-flex justify-content-center">
           <Button variant="dark" type='submit'className='mb-5 custom-button' onClick={handleSubmit}>Submit</Button>&nbsp;&nbsp;
-          <Button variant="dark" type='submit'className='mb-5 custom-button' >Edit</Button>
         </div>
+        
         {attendanceMsg && (<p>{attendanceMsg}</p>)}
       </div>
     </div>
     </>
       )}
-      {/* <div className="container">
-        <div className="row">
-          <div className="col d-flex justify-content-center">
-            <Button variant="dark" type='submit'className='mb-5 custom-button' onClick={handleSubmit}>Submit</Button>&nbsp;&nbsp;
-            <Button variant="dark" type='submit'className='mb-5 custom-button' >Edit</Button>
-          </div>
-        </div>
-      </div> */}
-     
       <Prefooter/>
       <Footer/>
     </>
@@ -256,19 +216,3 @@ const Attendance = () => {
 }
 
 export default Attendance
-
-
-
-  // const getCurrentDate = () => {
-  //   const now = new Date();
-  //   const year = now.getFullYear();
-  //   const month = `${(now.getMonth() + 1).toString().padStart(2, '0')}`;
-  //   const day = `${now.getDate().toString().padStart(2, '0')}`;
-  //   return `${year}-${month}-${day}`;
-  // };
-
-  // useEffect(() => {
-  //   const today = getCurrentDate();
-  //   document.getElementById('start').min = today;
-  //   document.getElementById('start').max = today;
-  // }, []);

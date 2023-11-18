@@ -1,14 +1,18 @@
 import React,{useState,useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
+import { loginStorage } from './LoginStorage';
 
 const DriverDetails = ({selectedComponent}) => {
+  const isLoggedIn = loginStorage.details && loginStorage.details.code !== '' && loginStorage.details.code !== undefined;
   const [driverDetails, setDriverDetails] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [driverIdToDelete, setDriverIdToDelete] = useState(null);
+
+  const navigate=useNavigate();
 
   const fetchDriverDetails = async () => {
     try {
@@ -47,11 +51,12 @@ const DriverDetails = ({selectedComponent}) => {
 
   return (
     <>
+      {isLoggedIn===true?(
+        <>
         <div className="container">
         <div className="row">
             <div className="col d-flex justify-content-center">
             <Link to='/addDriver'><Button variant="dark" type='submit'className='mb-5 custom-button' >Add Driver</Button></Link> &nbsp;&nbsp;
-              {/* <Button variant="dark" type='submit'className='mb-5 custom-button' >Delete Driver</Button> */}
             </div>
         </div>
         </div>
@@ -97,7 +102,8 @@ const DriverDetails = ({selectedComponent}) => {
             </div>
         </div>
       </div>
-
+     </>
+      ):(navigate('/'))}
     </>
   )
 }

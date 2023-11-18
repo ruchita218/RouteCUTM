@@ -8,38 +8,21 @@ import { Link } from "react-router-dom";
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { useSelector } from 'react-redux';
 import { loginStorage } from './LoginStorage';
 
 
 
 const Header = () => {
 
-  //const loginDetails = useSelector((state) => state.loginDetails);
-  //console.log(loginStorage.details);
-
   // useEffect(() => {
   //   console.log(loginStorage.details); // This will log when loginStorage.details gets updated
   // }, [loginStorage.details]);
 
-  //console.log(loginDetails);
-
-  // const handleLogout = () => {
-  //   // Handle logout logic here
-  // };
-
-      // const code="admin";
-      // const isLoggedIn=false;
-
-    // const hasCodeProperty = 'code' in loginStorage.details;
-    // const isLoggedIn = hasCodeProperty;
-    // const code = hasCodeProperty ? loginStorage.details.code : '';
-
-    const isLoggedIn = loginStorage.details && loginStorage.details.code !== '';
+    const isLoggedIn = loginStorage.details  &&  loginStorage.details.code !== '' && loginStorage.details.code !== undefined;
     const code = isLoggedIn ? loginStorage.details.code : '';
-
-    // console.log(isLoggedIn);
-    // console.log(code);
+    //console.log(isLoggedIn);
+    //console.log(loginStorage.details);
+    // console.log(loginStorage);
 
    const navigate = useNavigate();
 
@@ -55,9 +38,15 @@ const Header = () => {
             <Nav.Link as={Link} to="/about" className='link'><b>About</b></Nav.Link>
             <Nav.Link as={Link} to="/contact" className='link' ><b>Contact</b></Nav.Link>
             {code === "user" && (
-              <Nav.Link as={Link} to="https://cutm.icloudems.com/corecampus/student/fees/common_transport_fees.php" className='link'>
-                <b>Payment</b>
-              </Nav.Link>
+              <>
+                <Nav.Link as={Link} to="https://cutm.icloudems.com/corecampus/student/fees/common_transport_fees.php" className='link'>
+                  <b>Payment</b>
+                </Nav.Link>
+                
+                <Nav.Link as={Link} to="/checkAttendance" className='link'>
+                  <b>Check Attendance</b>
+                </Nav.Link>
+              </>
             )}
             {code === "driver" && (
               <Nav.Link as={Link} to="/attendance" className='link'>
@@ -82,8 +71,7 @@ const Header = () => {
         </Navbar.Collapse>
         
       </Container> 
-    </Navbar>
-    
+    </Navbar>    
     </>
   )
 }

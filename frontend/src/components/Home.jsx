@@ -3,7 +3,6 @@ import Header from './Header.jsx';
 import Slider from './Slider.jsx';
 import './Home.css';
 import Table from 'react-bootstrap/Table';
-import { Link } from "react-router-dom";
 import FAQ from './FAQ.jsx';
 import Prefooter from './Prefooter.jsx';
 import Footer from './Footer.jsx';

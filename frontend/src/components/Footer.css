@@ -1,8 +1,12 @@
+.footer-container{
+    margin-bottom:auto ;
+}
 .footer{
     background-color: brown;
     padding: 10px;
     color: white;
     text-align: center;
+    /* //margin-top: auto; */
 }
 .link{
     color: white ;

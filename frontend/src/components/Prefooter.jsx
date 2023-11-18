@@ -10,7 +10,7 @@ const Prefooter = () => {
   return (
     <div className="container-fluid prefooter">
         <div className="container">
-        <div className="row m-3">
+        <div className="row m-3 main">
           <div className="col">
             <div><Link to="/"><img src={logo} className="logo" alt="Centurion Logo" /></Link></div>
             <div><Link to="/register" className='footerToggle'>Register Your Bus</Link></div>
