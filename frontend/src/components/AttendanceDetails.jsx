@@ -3,8 +3,14 @@ import Header from './Header';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { loginStorage } from './LoginStorage';
 
 const AttendanceDetails = ({selectedComponent}) => {
+    
+    const navigate=useNavigate();
+
+    const isLoggedIn = loginStorage.details && loginStorage.details.code !== '' && loginStorage.details.code !== undefined;
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedBusNo, setSelectedBusNo] = useState('');
     const [showTable, setShowTable] = useState(false);
@@ -66,6 +72,8 @@ const AttendanceDetails = ({selectedComponent}) => {
 
   return (
     <>
+      {isLoggedIn===true?(
+        <>
        <Header/>
        {showTable ? (
           <>
@@ -121,7 +129,6 @@ const AttendanceDetails = ({selectedComponent}) => {
         <div className="row">
           <div className="col d-flex justify-content-center">
             <Button variant="dark" type='submit'className='mb-5 custom-button' onClick={handleCloseTable}>Close</Button> &nbsp; &nbsp;
-            {/* <Button variant="dark" type='submit'className='mb-5 custom-button' >Edit</Button> */}
           </div>
         </div>
       </div>
@@ -134,11 +141,11 @@ const AttendanceDetails = ({selectedComponent}) => {
             <h5 style={{marginTop:'8px',overflowY:'hidden'}}>Select Date</h5> &nbsp;&nbsp;
             <input type="date" id="start" required name="date" min="#" max="#" value={selectedDate}
                   onChange={(e) => setSelectedDate(e.target.value)} style={{
-              padding: '10px',   // Add padding to the input element
-              border: '1px solid #ccc', // Add a border
-              borderRadius: '5px',      // Apply rounded corners
-              fontSize: '16px',       // Set font size
-              backgroundColor: '#f5f5f5', // Background color
+              padding: '10px',   
+              border: '1px solid #ccc', 
+              borderRadius: '5px', 
+              fontSize: '16px',      
+              backgroundColor: '#f5f5f5', 
               color: '#333',     
             }}/>
             
@@ -161,6 +168,8 @@ const AttendanceDetails = ({selectedComponent}) => {
         </div>
         </form>
        )}
+      </>
+      ):(navigate('/'))}
     </>
   )
 }
