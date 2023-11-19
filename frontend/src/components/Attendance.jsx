@@ -35,6 +35,7 @@ const Attendance = () => {
   const [selectedStatus, setSelectedStatus] = useState({});
   const [attendance, setAttendance] = useState([]);
   const [selectedDate, setSelectedDate] = useState(getCurrentDate());
+  //const [isPresent, setIsPresent] = useState({});
 
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
@@ -66,7 +67,9 @@ const Attendance = () => {
     e.preventDefault();
     if (!uniqueAttendance || uniqueAttendance.length === 0) {
       setAttMsg('Please select attendance for all users.');
-      setTimeout(() => setAttMsg(''), 5000);
+      setTimeout(() =>{
+        setAttMsg('');
+      }, 4000);
       return;
     }
     //console.log(uniqueAttendance);
@@ -76,14 +79,19 @@ const Attendance = () => {
 
     if (usersWithEmail.length !== attendanceEmails.length || !usersWithEmail.every((email) => attendanceEmails.includes(email))) {
       setAttMsg('Please select attendance for all users.');
-      setTimeout(() => setAttMsg(''), 5000);
+      setTimeout(() =>{
+       setAttMsg('');
+     }, 4000);
       return;
     }
     try {
       const response = await axios.post('/api/driver/addAttendance', uniqueAttendance);
       if (typeof response.data === 'string') {
         setAttMsg(response.data);
-        setTimeout(() => setAttMsg(''), 5000);
+        setTimeout(() => {
+          setAttMsg('');
+          navigate('/');
+      }, 3000);
       }
     } catch (error) {
       console.error('Error submitting attendance: ', error);
@@ -94,6 +102,8 @@ const Attendance = () => {
   
 
   const handleStatusChange = (userId,userEmail, newStatus,date,busNo,driverEmail) => {
+
+    //const initialStatus = (newStatus !== 'present' && newStatus !== 'absent') ? '' : newStatus;
 
     setSelectedStatus((prevStatus) => ({
       ...prevStatus,
@@ -139,6 +149,40 @@ const Attendance = () => {
   useEffect(() => {
     fetchData();
   },[],[id]);
+
+
+  // const fetchAttendanceData = async () => {
+  //   try {
+  //     for (const user of users) {
+  //       const attendanceResponse = await axios.post('/api/driver/getAttendanceStatus', {
+  //         userEmail: user.email,
+  //         date: getCurrentDate(),
+  //         busNo: busNo,
+  //         driverEmail: driverEmail,
+  //       });
+
+  //       const status = attendanceResponse.data.status;
+       
+
+  //       if (status === 'present') {
+  //         //setIsPresent(true);
+  //         // user.isPresent = true;
+  //       } else if (status === 'absent') {
+  //         //user.isPresent = false;
+  //         //setIsPresent(false);
+  //       }
+  //     }
+  //     setUsers([...users]);
+  //   } catch (error) {
+  //     console.error('Error fetching attendance data: ', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (users.length > 0) {
+  //     fetchAttendanceData();
+  //   }
+  // }, [users]);
   return (
     <>
       <Header/>

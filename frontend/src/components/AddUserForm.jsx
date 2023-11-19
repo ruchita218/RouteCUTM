@@ -47,6 +47,14 @@ const AddUserForm = () => {
         })
     }
 
+    useEffect(() => {
+      if (addStatus === 'User added successfully.') {
+        setTimeout(() => {
+          navigate('/transportationinfo');
+        }, 2000);
+      }
+    }, [addStatus, navigate]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -60,11 +68,11 @@ const AddUserForm = () => {
                 location: '',
                 registrationNo: '',
               });
-              if (addStatus==='User added successfully.') {
-                setTimeout(() => {
-                  navigate('/transportationinfo');
-                }, 2000);
-              }
+              // if (addStatus==='User added successfully.') {
+              //   setTimeout(() => {
+              //     navigate('/transportationinfo');
+              //   }, 2000);
+              // }
           }
         } catch (error) {  
           console.log(error);
@@ -75,10 +83,10 @@ const AddUserForm = () => {
   return (
     <>
       <Header/>
-      <div className="container" style={{marginTop:'140px',marginBottom:'20px',backgroundColor:'#F7F7F7'}}>
+      <div className="container col-md-6" style={{marginTop:'140px',marginBottom:'20px',backgroundColor:'#F7F7F7',boxShadow: '4px 4px 2px rgba(0, 0, 0, 0.5)',borderRadius:'14px'}}>
         <div className="row">
           <div className="offset-md-3 col-md-6">
-          <h2 style={{textAlign:'center',overflowY:'hidden',color:'brown'}}>Add User</h2>
+          <h2 style={{textAlign:'center',overflowY:'hidden',color:'brown',marginTop:'8px'}}>Add User</h2>
           <Form onSubmit={handleSubmit} method='POST'>
         <Form.Group className="mb-3" controlId="formGroupEmail">
           <Form.Label>Name</Form.Label>

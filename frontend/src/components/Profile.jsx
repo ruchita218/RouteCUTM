@@ -33,7 +33,13 @@ const Profile = () => {
   const [show, setShow] = useState(false);
   const [busLocations, setBusLocations] = useState([]);
   const [showLocationModal, setShowLocationModal] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
   const[editLocationStatus,setEditLocationStatus]=useState(null);
+  const [changePassStatus,setChangePassStatus]=useState(null);
+  const [passwordFormData, setPasswordFormData] = useState({
+    oldPass: '',
+    newPass: '',
+  });
   //const[showEditMsg,setShowEditMsg]=useState('');
 
   const [formData, setFormData] = useState({
@@ -48,9 +54,66 @@ const Profile = () => {
     });
   };
 
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordFormData({
+      ...passwordFormData,
+      [name]: value,
+    });
+  };
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   //const code = 'admin';
+
+  const handleShowPasswordModal = () => {
+    setShowPasswordModal(true);
+  };
+  
+  const handleClosePasswordModal = () => {
+    setShowPasswordModal(false);
+    // Clear password form data when modal is closed
+    setPasswordFormData({
+      oldPass: '',
+      newPass: '',
+    });
+  };
+
+  const handleChangePassword = async (e) => {
+    try {
+      e.preventDefault();
+      let api=``;
+      if (code==='admin') {
+        api=`/api/admin/edit/${id}`
+      }
+      else if (code==='user') {
+        api=`/api/users/edit/${id}`
+      }
+      else if (code==='driver') {
+        api=`/api/driver/edit/${id}`
+      }
+      const response = await axios.put(api, {
+        oldPass: passwordFormData.oldPass,
+        newPass: passwordFormData.newPass,
+      });
+      setChangePassStatus(response.data);
+      if (response.data==='Password changed successfully.') {
+        //setChangePassStatus(response.data);
+        setTimeout(()=>{
+          setChangePassStatus(null);
+          handleClosePasswordModal();
+        },3000)
+      }
+
+      // setChangePassStatus(response.data);
+      setTimeout(()=>{
+        setChangePassStatus(null);
+      },3000)
+      
+    } catch (error) {
+      console.error('Error changing password: ', error);
+    }
+  };
 
   const handleLogout=()=>{
     loginStorage.details={};
@@ -175,11 +238,12 @@ const Profile = () => {
                         <div style={{textAlign:'center'}}>
                           <Button variant='dark' onClick={() => setShowLocationModal(true)}>Change Location</Button>
                           <hr/>
-                          <Button variant='dark'>Change Password</Button>
+                          <Button variant='dark' onClick={handleShowPasswordModal}>Change Password</Button>
                         </div>
                       </Offcanvas.Body>
                     </Offcanvas>
 
+                    {/* Modal to change location by the user*/}
                     <Modal show={showLocationModal} onHide={() => setShowLocationModal(false)} centered>
                       <Modal.Header closeButton>
                         <Modal.Title>Change Your Location</Modal.Title>
@@ -237,6 +301,7 @@ const Profile = () => {
                 <div>Total Registered User in your bus: {driverData.busInfo?driverData.busInfo.registeredUsers:''}</div>
                 <div>Code: {driverData.code}</div>
                 <button onClick={handleLogout}>Logout</button>
+                <button  onClick={handleShowPasswordModal}>Change Password</button>
               </div>
               </>
             )}
@@ -249,9 +314,37 @@ const Profile = () => {
                 <div>Email: {adminData.email}</div>
                 <div>Code: {adminData.code}</div>
                 <button onClick={handleLogout}>Logout</button>
+                <button  onClick={handleShowPasswordModal}>Change Password</button>
               </div>
               </>
             )}
+
+
+            <Modal show={showPasswordModal} onHide={handleClosePasswordModal} centered>
+              <Modal.Header closeButton>
+                  <Modal.Title>Change Password</Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                <Form>
+                  <Form.Group className="mb-3" controlId="oldPass">
+                    <Form.Label>Old Password</Form.Label>
+                    <Form.Control type="password" name="oldPass" value={passwordFormData.oldPass} onChange={handlePasswordChange}/>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="newPass">
+                    <Form.Label>New Password</Form.Label>
+                    <Form.Control type="password" name="newPass" value={passwordFormData.newPass} onChange={handlePasswordChange}/>
+                  </Form.Group>
+                </Form>
+                <p>{changePassStatus}</p>
+              </Modal.Body>
+
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClosePasswordModal}>Close</Button>
+                <Button variant="dark" onClick={handleChangePassword}>Change</Button>
+              </Modal.Footer>
+            </Modal>
         </div>
     </div>
     <Prefooter/>
